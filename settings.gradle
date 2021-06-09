@@ -1,0 +1,3 @@
+include ':eitherlinecircleshooterview'
+include ':app'
+rootProject.name = "LinkedEitherLineCircleShooterView"
