@@ -104,7 +104,7 @@ class EitherLineCircleShooterView(ctx : Context) : View(ctx) {
 
     data class Animator(var view : View, var animated : Boolean = false) {
 
-        fun animated(cb : () -> Unit) {
+        fun animate(cb : () -> Unit) {
             if (animated) {
                 cb()
                 try {
@@ -191,6 +191,29 @@ class EitherLineCircleShooterView(ctx : Context) : View(ctx) {
 
         fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
+        }
+    }
+
+    data class Renderer(var view : EitherLineCircleShooterView) {
+
+        private val animator : Animator = Animator(view)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        private val elcs : EitherLineCircleShooter = EitherLineCircleShooter(0)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            elcs.draw(canvas, paint)
+            animator.animate {
+                elcs.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            elcs.startUpdating {
+                animator.start()
+            }
         }
     }
 }
