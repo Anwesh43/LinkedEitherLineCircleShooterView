@@ -218,4 +218,13 @@ class EitherLineCircleShooterView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : EitherLineCircleShooterView {
+            val view : EitherLineCircleShooterView = EitherLineCircleShooterView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
